@@ -1,0 +1,6 @@
+#ifndef BINARY_SEARCHER_HPP
+#define BINARY_SEARCHER_HPP
+
+
+
+#endif
