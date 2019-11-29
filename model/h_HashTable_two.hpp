@@ -75,7 +75,7 @@ void HashTableList::rebuild() {
     for (int i = 0;i<storage.size();i++) {
         if (storage[i][0]!=nullptr) {
             for (int j = 0; j<storage[i].size();j++) {
-
+                //TODO: dobavit' sraniy funccional
             }
         }
     }
