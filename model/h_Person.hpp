@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
 /* Declaration */
 
 auto ranInt = [] (int max) {return rand()%max+1;};
