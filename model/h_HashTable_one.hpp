@@ -1,3 +1,6 @@
+#ifndef HASHTABLEONE_H
+#define HASHTABLEONE_H
+
 #include "protocols.hpp"
 #include <vector>
 #include <iostream>
@@ -56,7 +59,6 @@ bool HashTable::containsKey(int key) {
 }
 
 void HashTable::rebuild() {
-    int old_maxSize = this->maxSize;
     maxSize*=2;
     vector<Hashable*> newStorage = vector<Hashable*>(this->maxSize,nullptr);
     for (int i = 0;i<storage.size();i++) {
@@ -71,3 +73,4 @@ void HashTable::evaluate() {
 
 
 
+#endif
