@@ -29,7 +29,7 @@ int hashOfStrings(vector<string> strings, int year) {
     return summ*10 + year;
 }
 
-int hashFromData(int day, int month, int nameLength) {
+int hashFromDate(int day, int month, int nameLength) {
     return day+10*month+nameLength*100;
 }
 

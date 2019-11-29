@@ -15,7 +15,7 @@ int hashOfStrings(vector<string> strings, int year);
 
 // date(day) + month + name_length to hash (int)
 
-int hashFromData(int day, int month, int nameLength);
+int hashFromDate(int day, int month, int nameLength);
 
 // first letters of name, surname and father's name to hash (int)
 

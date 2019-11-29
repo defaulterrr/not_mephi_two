@@ -59,5 +59,16 @@ template<typename Key, typename Any> bool HashTablePrimitive<Key,Any>::containsK
 }
 
 template<typename Key, typename Any> Any HashTablePrimitive<Key,Any>::get(Key key) {
+    try {
+            if (this->storage[key] != nullptr) {
+            return this->storage[key];
+            } else {return nullptr;}}
+
+            catch (std::exception e) {
+                std::cout << "Failure while returning element by key" << std::endl;
+            }
+}
+
+template<typename Key, typename Any> void HashTablePrimitive<Key,Any>::add(Key key, Any element) {
 
 }

@@ -1,4 +1,4 @@
-#include "Dictionary.hpp"
+#include "../protocols/Dictionary.hpp"
 #include <exception>
 #include <iostream>
 #include <vector>
