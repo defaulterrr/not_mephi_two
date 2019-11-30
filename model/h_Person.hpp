@@ -57,7 +57,7 @@ int Person::hash() {
 }
 
 int Person::hash(int max) {
-    vector<string> temp = {this->name,this->surname,this->email};
+    vector<string> temp = {this->name};
     return hashOfStrings(temp,this->year) % max;
 }
 

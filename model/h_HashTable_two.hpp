@@ -56,7 +56,8 @@ Hashable* HashTableList::get(int key) {
 }
 
 void HashTableList::add(Hashable* value) {
-    storage[value->hash()%maxSize] = value;
+    // storage[value->hash()%maxSize] = value;
+    storage[value->hash()%maxSize].push_back(value);
     this->evaluate();
 }
 
@@ -75,7 +76,7 @@ void HashTableList::rebuild() {
     for (int i = 0;i<storage.size();i++) {
         if (storage[i][0]!=nullptr) {
             for (int j = 0; j<storage[i].size();j++) {
-                //TODO: dobavit' sraniy funccional
+                newStorage[storage[i][j]->hash()%maxSize].push_back(storage[i][j]); 
             }
         }
     }
