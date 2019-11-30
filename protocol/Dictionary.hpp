@@ -8,7 +8,7 @@
             virtual Value get(Key key) = 0;
             virtual bool containsKey(Key key) = 0;
             virtual void add(Value value) = 0;
-            virtual void add(Key key, Value value) = 0;
+            virtual void add(Key key, Value value);
     };
 
 #endif

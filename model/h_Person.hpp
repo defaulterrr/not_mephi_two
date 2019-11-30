@@ -6,19 +6,24 @@
 #include <random>
 #include <ctime>
 #include <cstdlib>
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
 using namespace std;
 
 /* Declaration */
+    static int i = 0;
 
 auto ranInt = [] (int max) {
-    int ran;
-    try {
-    std::srand(time(nullptr));
-    ran = std::rand()%(max+1);
-    } catch (std::bad_alloc e) {
-        return 394%(max+1);
-    }
-   
+    unsigned int ran;
+    // std::srand(time(nullptr));
+    // ran = std::rand()%(max+1);
+    std::random_device rd; 
+    std::mt19937 mersenne(rd());
+    ran = mersenne();
+    ran = ran%(max+2);
+    while (ran>max) {ran-=max;}
+    cout << max << " " << ran << endl;
     return ran;
    };
 
@@ -42,9 +47,10 @@ int hashOfStrings(vector<string> strings, int year) {
     return summ*10 + year;
 }
 
-class Person: Hashable {
+class Person: public Hashable {
 public:
     Person();
+    Person(string name,string surname,string email,int year);
     int hash();
     int hash(int max);
     void print();
@@ -59,10 +65,19 @@ private:
 
 Person::Person() {
     //cout << "Created person" << endl;
+    
     this->name = names[ranInt(name.size())];
     this->surname = surnames[ranInt(surnames.size())];
     this->email = emails[ranInt(emails.size())];
-    this->year = ranInt(10000);
+    this->year = ranInt(10000); 
+    
+}
+
+Person::Person(string name,string surname,string email,int year) {
+    this->name = name;
+    this->surname = surname;
+    this->email = email;
+    this->year = year;
 }
 
 int Person::hash() {

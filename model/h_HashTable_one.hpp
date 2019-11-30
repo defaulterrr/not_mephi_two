@@ -7,7 +7,7 @@
 using namespace std;
 
 /* Declaration */
-class HashTable: public Dictionary<int,Hashable*> {
+class HashTable  {
     public:
         HashTable();
         int getCount();
@@ -49,6 +49,12 @@ Hashable* HashTable::get(int key) {
 }
 
 void HashTable::add(Hashable* value) {
+    if(storage[value->hash()%maxSize] == nullptr) this->curSize++;
+    storage[value->hash()%maxSize] = value;
+    this->evaluate();
+}
+
+void HashTable::add(int key,Hashable* value) {
     storage[value->hash()%maxSize] = value;
     this->evaluate();
 }
@@ -61,14 +67,16 @@ bool HashTable::containsKey(int key) {
 void HashTable::rebuild() {
     maxSize*=2;
     vector<Hashable*> newStorage = vector<Hashable*>(this->maxSize,nullptr);
+    cout << "Initialized vector" << endl;
     for (int i = 0;i<storage.size();i++) {
-        newStorage[storage[i]->hash()%maxSize] = storage[i];
+        cout << "Index of old vector = " << i+1 << endl;
+        if(storage[i]!=nullptr) {newStorage[storage[i]->hash()%(maxSize+1)] = storage[i];}
     }
     this->storage = newStorage;
 }
 
 void HashTable::evaluate() {
-    if (curSize/maxSize >= 0.75) {this->rebuild();}
+    if (curSize > maxSize*0.75) {cout << "Calling rebuild" << endl;this->rebuild();}
 }
 
 
