@@ -3,11 +3,24 @@
 #include "../protocol/Hashable.hpp"
 #include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 /* Declaration */
 
-auto ranInt = [] (int max) {return rand()%max+1;};
+auto ranInt = [] (int max) {
+    int ran;
+    try {
+    std::srand(time(nullptr));
+    ran = std::rand()%(max+1);
+    } catch (std::bad_alloc e) {
+        return 394%(max+1);
+    }
+   
+    return ran;
+   };
 
 const vector<string> names = {"John","Joe","Carl","Vito","Alan","Barbara","Robert","Harvey","Mike","Jessica","Rachel","Vicky","Louis","Donna"};
 const vector<string> surnames = {"Scaletta","Swift","Zane","Ross","Spectre","Litt","Paulson","Pearson","Hardman","Potter","Granger","Jobs","Voznyak"};
@@ -45,6 +58,7 @@ private:
 /* Implementation */
 
 Person::Person() {
+    //cout << "Created person" << endl;
     this->name = names[ranInt(name.size())];
     this->surname = surnames[ranInt(surnames.size())];
     this->email = emails[ranInt(emails.size())];
