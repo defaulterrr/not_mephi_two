@@ -16,14 +16,9 @@ using namespace std;
 
 auto ranInt = [] (int max) {
     unsigned int ran;
-    // std::srand(time(nullptr));
-    // ran = std::rand()%(max+1);
-    std::random_device rd; 
-    std::mt19937 mersenne(rd());
-    ran = mersenne();
-    ran = ran%(max+2);
-    while (ran>max) {ran-=max;}
-    cout << max << " " << ran << endl;
+    std::srand(time(nullptr));
+    ran = std::rand()%(max+1);
+    
     return ran;
    };
 
