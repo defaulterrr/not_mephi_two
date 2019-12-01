@@ -51,7 +51,36 @@ public:
     int hash();
     int hash(int max);
     void print();
+    int hash = 0;
+    bool operator == (const Person &one, const Person &two) {
+        if (one.hash() == two.hash()) return true;
+        return false;
+    }
 
+    bool operator != (const Person &one, const Person &two) {
+        if (one.hash() == two.hash()) return false;
+        return true;
+    }
+
+    bool operator < (const Person &one, const Person &two) {
+        if (one.hash() < two.hash()) return true;
+        return false;
+    }
+
+    bool operator > (const Person &one, const Person &two) {
+        if (one.hash() < two.hash()) return false;
+        return true;
+    }
+
+    bool operator <= (const Person &one, const Person &two) {
+        if (one.hash() <= two.hash()) return true;
+        return false;
+    }
+
+    bool operator >= (const Person &one, const Person &two) {
+        if (one.hash() <= two.hash()) return false;
+        return true;
+    }
 private:
     string name,surname,email;
     int year;
@@ -83,8 +112,9 @@ Person::Person(string name,string surname,string email,int year) {
 }
 
 int Person::hash() {
-    vector<string> temp = {this->name,this->surname,this->email};
-    return hashOfStrings(temp,this->year);
+    if (hash == 0 ) {vector<string> temp = {this->name,this->surname,this->email};
+    return hashOfStrings(temp,this->year);}
+    else return hash;
 }
 
 int Person::hash(int max) {
