@@ -4,6 +4,7 @@
 using namespace std;
 
 int main() {
+    func();
     HashTable table = HashTable();
     Person *dummy1 = new Person("Mike","Ross","mross@harvard.edu",1985);
     table.add(dummy1);
@@ -12,7 +13,7 @@ int main() {
     else {
         cout << "returned nullptr" << endl;
     }
-
+    cout << "Creating persons" << endl;
     Person *array = new Person[512];
     for (int i=0;i<512;i++) {
         array[i] = Person();
