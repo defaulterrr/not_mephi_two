@@ -34,6 +34,6 @@ int main() {
     table.add(dummy1);
     cout << "find2 test" << table.find(dummy1) <<"ss"<<endl;
     for(int l=0;l<10;l++)
-    cout << table.get(dummy1->hash()%table.getCapacity()) << endl;
+    cout << table.get(dummy1->hash()%table.getCapacity(),l) << endl;
     
 }

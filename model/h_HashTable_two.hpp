@@ -67,10 +67,13 @@ void HashTableList::add(Hashable* value) {
     // storage[value->hash()%maxSize] = value;
     //<vector<Hashable*>
     int itr = value->hash()%maxSize;
-    if( storage[itr][0] == nullptr)
+    if( storage[itr][0] == nullptr) {
         storage[itr] = vector<Hashable*>();
+        this->curSize++;
+    }
+        
     storage[itr].push_back(value);
-    this->curSize++;
+    
     this->evaluate();
 }
 
@@ -97,13 +100,10 @@ void HashTableList::rebuild() {
 }
 
 bool HashTableList::find(Hashable* value){
-    int k = value->hash()%maxSize;
-    Hashable* tmp = this->get(k);
-    int i = 1;
-    while(tmp != nullptr){
-        if(tmp == value)
+    vector<Hashable*> tmp = storage[value->hash()%maxSize];
+    for(int i=0;i<tmp.size();i++){
+        if(tmp[i] == value)
             return true;
-        tmp = this->get(k, i);
         i++;
     }
     return false;
