@@ -16,6 +16,7 @@ class HashTable  {
         bool containsKey(int key);
         void add(Hashable* value);
         void add(int key,Hashable* value);
+        bool find(Hashable* value);
 
     private:
         void rebuild();
@@ -73,6 +74,14 @@ void HashTable::rebuild() {
         if(storage[i]!=nullptr) {newStorage[storage[i]->hash()%(maxSize+1)] = storage[i];}
     }
     this->storage = newStorage;
+}
+
+bool HashTable::find(Hashable* value){
+    if(this->get(value->hash()%maxSize) == nullptr)
+        return false;
+    if(this->get(value->hash()%maxSize) == value)
+        return true;
+    return false;
 }
 
 void HashTable::evaluate() {
