@@ -66,9 +66,11 @@ Hashable* HashTableList::get(int key, int n) {
 void HashTableList::add(Hashable* value) {
     // storage[value->hash()%maxSize] = value;
     //<vector<Hashable*>
-    if( storage[value->hash()%maxSize] == nullptr)
-        storage[value->hash()%maxSize] = vector<Hashable*>();
-    storage[value->hash()%maxSize].push_back(value);
+    int itr = value->hash()%maxSize;
+    if( storage[itr][0] == nullptr)
+        storage[itr] = vector<Hashable*>();
+    storage[itr].push_back(value);
+    this->curSize++;
     this->evaluate();
 }
 
