@@ -7,16 +7,18 @@
 using namespace std;
 
 /* Declaration */
-class HashTableList: public Dictionary<int,Hashable*> {
+class HashTableList {
     public:
         HashTableList();
         int getCount();
         int getCapacity();
         Hashable* get(int key);
+        Hashable* get(int key, int n);
         vector<Hashable*> getAll(int key);
         bool containsKey(int key);
         void add(Hashable* value);
         void add(int key,Hashable* value);
+        bool find(Hashable* value);
 
     private:
         void rebuild();
@@ -55,8 +57,17 @@ Hashable* HashTableList::get(int key) {
     else {return storage[key][0];}
 }
 
+Hashable* HashTableList::get(int key, int n) {
+    if (key > maxSize) {return nullptr;}
+    if (storage[key][n] == nullptr) {return nullptr;}
+    else {return storage[key][n];}
+}
+
 void HashTableList::add(Hashable* value) {
     // storage[value->hash()%maxSize] = value;
+    //<vector<Hashable*>
+    if( storage[value->hash()%maxSize] == nullptr)
+        storage[value->hash()%maxSize] = vector<Hashable*>();
     storage[value->hash()%maxSize].push_back(value);
     this->evaluate();
 }
@@ -82,6 +93,21 @@ void HashTableList::rebuild() {
     }
     this->storage = newStorage;
 }
+
+bool HashTableList::find(Hashable* value){
+    int k = value->hash()%maxSize;
+    Hashable* tmp = this->get(k);
+    int i = 1;
+    while(tmp != nullptr){
+        if(tmp == value)
+            return true;
+        tmp = this->get(k, i);
+        i++;
+    }
+    return false;
+}
+
+
 
 void HashTableList::evaluate() {
     if (curSize/maxSize >= 0.75) {this->rebuild();}
