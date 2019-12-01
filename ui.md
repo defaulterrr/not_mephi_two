@@ -22,3 +22,18 @@
 # Pre-defined tests
 
 ## test [test name]
+
+
+
+
+# Linear structure
+
+## Choose type: hash-table or sequence
+
+### hash-table - choose type of table: with/out collision-solving and type of it
+
+## Choose amount of elements created and manual/random
+
+## Specify search points
+
+## 
