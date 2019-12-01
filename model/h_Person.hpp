@@ -113,8 +113,8 @@ Person::Person(string name,string surname,string email,int year) {
 
 int Person::hash() {
     if (hash == 0 ) {vector<string> temp = {this->name,this->surname,this->email};
-    return hashOfStrings(temp,this->year);}
-    else return hash;
+    hash = hashOfStrings(temp,this->year);}
+    return hash;
 }
 
 int Person::hash(int max) {
