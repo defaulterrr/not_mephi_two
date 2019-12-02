@@ -6,6 +6,14 @@
 #include <iostream>
 using namespace std;
 
+template<typename T> T evaluate(string message, std::map<string,T> options) {
+    auto itr = options.find(message);
+    if( itr != options.end() ) {
+        return options.at(message);
+    }
+    return -1;
+}
+
 enum MajorComms {
     Create,
     Fill,
@@ -17,7 +25,7 @@ enum MajorComms {
 
 enum GenerationType {
     Random,
-    Manual,
+    Manual, 
     InvalidG
 };
 
