@@ -22,6 +22,12 @@ struct Command{
             return commandList[index];
     }
 
+    string base(){
+        if (commandList.size()>0)
+        return commandList[0];
+        else return string();
+    }
+
 private:
     void analyze(){
         string minimalWhiteSpace = string();

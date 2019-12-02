@@ -11,119 +11,29 @@ template<typename T> T evaluate(string message, std::map<string,T> options) {
     if( itr != options.end() ) {
         return options.at(message);
     }
-    return -1;
+    return (T)404;
 }
 
-enum MajorComms {
-    Create,
-    Fill,
-    Search,
-    Delete,
-    Test,
-    InvalidM
+enum StorageType {
+    HashTable,
+    Set
+};
+
+enum HashTableType {
+    Basic,
+    List,
+    Shift
+};
+
+enum SequenceType {
+    Sequence,
+    SortedSequence
 };
 
 enum GenerationType {
-    Random,
-    Manual, 
-    InvalidG
+    Manual,
+    Random
 };
-
-enum ContainerTypes {
-    HashTable,
-    Sequence,
-    InvalidC
-};
-
-enum hashTypes {
-    basic,
-    list,
-    shift,
-    invalidH
-};
-
-enum seqTypes {
-    seq,
-    sortSeq,
-    invalidS
-};
-
-enum sortSeqSearches {
-    binary,
-    basicS,
-    binaryCool,
-    invalidSearch
-};
-
-hashTypes resolveH(string command) {
-    static const std::map<std::string, hashTypes> optionStrings {
-        {"basic", basic },
-        {"list", list},
-        {"shift", shift}
-    };
-
-    auto itr = optionStrings.find(command);
-    if( itr != optionStrings.end() ) {
-        return optionStrings.at(command);
-    }
-    return hashTypes::invalidH; 
-}
-
-seqTypes resolveS(string command) {
-    static const std::map<std::string, seqTypes> optionStrings {
-        {"sequence", seq },
-        {"sortedSequence", sortSeq}
-    };
-
-    auto itr = optionStrings.find(command);
-    if( itr != optionStrings.end() ) {
-        return optionStrings.at(command);
-    }
-    return seqTypes::invalidS; 
-}
-
-// Resolve top-level command
-MajorComms resolveM(string command) {
-    static const std::map<std::string, MajorComms> optionStrings {
-        { "create", Create },
-        { "fill", Fill },
-        { "search", Search },
-        { "delete", Delete },
-        { "test", Test }
-    };
-
-    auto itr = optionStrings.find(command);
-    if( itr != optionStrings.end() ) {
-        return optionStrings.at(command);
-    }
-    return MajorComms::InvalidM; 
-}
-// Resolve generation type
-GenerationType resolveG(string command) {
-    static const std::map<std::string, GenerationType> optionStrings {
-        { "random", Random },
-        { "manual", Manual }
-    };
-
-    auto itr = optionStrings.find(command);
-    if( itr != optionStrings.end() ) {
-        return optionStrings.at(command);
-    }
-    return GenerationType::InvalidG; 
-}
-// Resolve container type
-ContainerTypes resolveC(string command) {
-    static const std::map<std::string, ContainerTypes> optionStrings {
-        { "hash", HashTable },
-        { "seq", Sequence }
-    };
-
-    auto itr = optionStrings.find(command);
-    if( itr != optionStrings.end() ) {
-        return optionStrings.at(command);
-    }
-    return ContainerTypes::InvalidC; 
-}
 
 class Application {
     public:
@@ -139,84 +49,26 @@ class Application {
     private:
         string base;
         void eventLoop() {
-            // while (base!="exit" && base !="q" && base != "quit") {
-            //     cout << "\nengine@localhost > ";
-            //     base = getCommand();
-            //     Command task = Command(base);
-
-            //     switch (resolveM(task.getLevel(0))) {
-            //         case Create:
-            //             cout << "Catched create command" << endl;
-            //             break;
-
-            //         case Fill:
-            //             break;
-
-            //         case Search:
-            //             break;
-
-            //         case Delete:
-            //             break;
-
-            //         case Test:
-            //             break;
-
-            //         default:
-            //             if (task.getLevel(0) == "exit" or task.getLevel(0) == "quit" or task.getLevel(0) == "q")
-            //             {print("Bye bye");}
-
-            //             else {
-            //                 print("Seems that entered command is unknown to me :( ");
-            //             }
-            //             break;
-            //     }
-            // }
-            print("Select type of container: hash or seq");
+            print("Select type of container: Hash-table or Set");
             string first = getCommand();
             Command task = Command(first);
-            switch(resolveC(task.getLevel(0))) {
-                case HashTable:
-                    executeHash();
-                    break;
+            map<string,StorageType> options {{"Hash-table",HashTable},{"Set",Set}};
+            switch (evaluate<StorageType>(task.base(),options))
+            {
+            case HashTable:
+                print("Using Hash-Table to store elements");
+                break;
+            case Set:
+                print("Using Set to store elements");
+                break;
 
-                case Sequence:
-                    executeSeq();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        void executeHash() {
-            print("Select type of hash-table: (with collision solving)List or Shift, (without collision solving) basic");
-            string second = getCommand();
-            Command task = Command(second);
-            switch(resolveH(task.getLevel(0))) {
-                case shift:
-                    break;
-                case basic:
-                    break;
-                case list:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        void executeSeq() {
-            print("Select type of hash-table: (with collision solving)List or Shift, (without collision solving) basic");
-            string second = getCommand();
-            Command task = Command(second);
-            switch(resolveH(task.getLevel(0))) {
-                case shift:
-                    break;
-                case basic:
-                    break;
-                case list:
-                    break;
-                default:
-                    break;
+            case 404:
+                print("Invalid command was entered");
+                break;
+            
+            default:
+                print("Undefined behaviour");
+                break;
             }
         }
 
