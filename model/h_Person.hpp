@@ -51,34 +51,34 @@ public:
     int hash();
     int hash(int max);
     void print();
-    int hash = 0;
-    bool operator == (const Person &one, const Person &two) {
-        if (one.hash() == two.hash()) return true;
+    int hashVal = 0;
+    bool operator == (const Person &two) {
+        if (this->hash() == two.hash()) return true;
         return false;
     }
 
-    bool operator != (const Person &one, const Person &two) {
-        if (one.hash() == two.hash()) return false;
+    bool operator != ( const Person &two) {
+        if (this->hash() == two.hash()) return false;
         return true;
     }
 
-    bool operator < (const Person &one, const Person &two) {
-        if (one.hash() < two.hash()) return true;
+    bool operator < ( const Person &two) {
+        if (this->hash() < two.hash()) return true;
         return false;
     }
 
-    bool operator > (const Person &one, const Person &two) {
-        if (one.hash() < two.hash()) return false;
+    bool operator > ( const Person &two) {
+        if (this->hash() < two.hash()) return false;
         return true;
     }
 
-    bool operator <= (const Person &one, const Person &two) {
-        if (one.hash() <= two.hash()) return true;
+    bool operator <= ( const Person &two) {
+        if (this->hash() <= two.hash()) return true;
         return false;
     }
 
-    bool operator >= (const Person &one, const Person &two) {
-        if (one.hash() <= two.hash()) return false;
+    bool operator >= ( const Person &two) {
+        if (this->hash() <= two.hash()) return false;
         return true;
     }
 private:
@@ -112,9 +112,9 @@ Person::Person(string name,string surname,string email,int year) {
 }
 
 int Person::hash() {
-    if (hash == 0 ) {vector<string> temp = {this->name,this->surname,this->email};
-    hash = hashOfStrings(temp,this->year);}
-    return hash;
+    if (this->hashVal == 0 ) {vector<string> temp = {this->name,this->surname,this->email};
+    hashVal = hashOfStrings(temp,this->year);}
+    return hashVal;
 }
 
 int Person::hash(int max) {
