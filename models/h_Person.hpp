@@ -20,7 +20,7 @@ static void func() {
 
 int ranInt (int max) {
     int ran = std::rand()%(max+2);
-    cout << ran << endl;
+    //cout << ran << endl;
     return ran;
    };
 
@@ -55,16 +55,17 @@ public:
     friend bool operator>(const Person& left, const Person& right);
     friend bool operator>=(const Person& left, const Person& right);
     friend bool operator<=(const Person& left, const Person& right);
-private:
+    friend bool operator==(const Person& left, const Person& right);
     string name,surname,email;
     int year;
+    //private:
     
 };
 
 /* Implementation */
 
 Person::Person() {
-    cout << "Created person" << endl;
+    //cout << "Created person" << endl;
     
     // this->name = names[ranInt(name.size()-1)];
     this->name = "asd";
@@ -72,7 +73,7 @@ Person::Person() {
     this->surname = "asdaf";
     // this->email = emails[ranInt(emails.size()-1)];
     this->email = "maskdal";
-    cout << " Created names etc" << endl;
+    //cout << " Created names etc" << endl;
     // this->year = ranInt(10000); 
     this->year = ++i; 
     
@@ -112,6 +113,22 @@ bool operator<=(const Person &left, const Person &right){
 }
 bool operator>=(const Person &left, const Person &right){
         return (left.hash()>=right.hash());
+}
+bool operator==(const Person &left, const Person &right){
+    if(left.hash()!=right.hash())
+        return false;
+    if(left.email!=right.email || left.name!=right.name ||
+                    left.surname!=right.surname || left.year!=right.year)
+        return false;
+    return true;
+}
+bool operator!=(const Person &left, const Person &right){
+    if(left.hash()!=right.hash())
+        return true;
+    if(left.email==right.email && left.name==right.name 
+                    && left.surname!=right.surname && left.year==right.year)
+        return false;
+    return true;
 }
 
 
