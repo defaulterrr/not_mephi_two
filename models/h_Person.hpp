@@ -48,10 +48,13 @@ class Person: public Hashable {
 public:
     Person();
     Person(string name,string surname,string email,int year);
-    int hash();
-    int hash(int max);
+    int hash() const;
+    int hash(int max) const;
     void print();
-
+    friend bool operator<(const Person& left, const Person& right);
+    friend bool operator>(const Person& left, const Person& right);
+    friend bool operator>=(const Person& left, const Person& right);
+    friend bool operator<=(const Person& left, const Person& right);
 private:
     string name,surname,email;
     int year;
@@ -82,12 +85,12 @@ Person::Person(string name,string surname,string email,int year) {
     this->year = year;
 }
 
-int Person::hash() {
+int Person::hash() const{
     vector<string> temp = {this->name,this->surname,this->email};
     return hashOfStrings(temp,this->year);
 }
 
-int Person::hash(int max) {
+int Person::hash(int max) const{
     vector<string> temp = {this->name};
     return hashOfStrings(temp,this->year) % max;
 }
@@ -96,5 +99,20 @@ void Person::print() {
     cout << this->name << " " << this->surname << endl;
     cout << this->email << " birth: " << this->year << endl;
 }
+
+
+bool operator>(const Person &left, const Person &right){
+	return (left.hash()>right.hash());
+}
+bool operator<(const Person &left, const Person &right){
+        return (left.hash()<right.hash());
+}
+bool operator<=(const Person &left, const Person &right){
+        return (left.hash()<=right.hash());
+}
+bool operator>=(const Person &left, const Person &right){
+        return (left.hash()>=right.hash());
+}
+
 
 #endif
