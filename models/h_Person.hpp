@@ -51,45 +51,11 @@ public:
     int hash() const;
     int hash(int max) const;
     void print();
-<<<<<<< HEAD:model/h_Person.hpp
-    int hashVal = 0;
-    bool operator == (const Person &two) {
-        if (this->hash() == two.hash()) return true;
-        return false;
-    }
-
-    bool operator != ( const Person &two) {
-        if (this->hash() == two.hash()) return false;
-        return true;
-    }
-
-    bool operator < ( const Person &two) {
-        if (this->hash() < two.hash()) return true;
-        return false;
-    }
-
-    bool operator > ( const Person &two) {
-        if (this->hash() < two.hash()) return false;
-        return true;
-    }
-
-    bool operator <= ( const Person &two) {
-        if (this->hash() <= two.hash()) return true;
-        return false;
-    }
-
-    bool operator >= ( const Person &two) {
-        if (this->hash() <= two.hash()) return false;
-        return true;
-    }
-private:
-=======
     friend bool operator<(const Person& left, const Person& right);
     friend bool operator>(const Person& left, const Person& right);
     friend bool operator>=(const Person& left, const Person& right);
     friend bool operator<=(const Person& left, const Person& right);
     friend bool operator==(const Person& left, const Person& right);
->>>>>>> origin/sortSeq:models/h_Person.hpp
     string name,surname,email;
     int year;
     //private:
@@ -120,16 +86,9 @@ Person::Person(string name,string surname,string email,int year) {
     this->year = year;
 }
 
-<<<<<<< HEAD:model/h_Person.hpp
-int Person::hash() {
-    if (this->hashVal == 0 ) {vector<string> temp = {this->name,this->surname,this->email};
-    hashVal = hashOfStrings(temp,this->year);}
-    return hashVal;
-=======
 int Person::hash() const{
     vector<string> temp = {this->name,this->surname,this->email};
     return hashOfStrings(temp,this->year);
->>>>>>> origin/sortSeq:models/h_Person.hpp
 }
 
 int Person::hash(int max) const{

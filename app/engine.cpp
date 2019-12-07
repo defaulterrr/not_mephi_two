@@ -1,7 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
-#include "Command.h"
-#include "../model/h_HashTable_one.hpp"
+#include "lib.hpp"
 #include <map>
 #include <iostream>
 using namespace std;
@@ -76,6 +75,36 @@ class Application {
                 }
             }
 
+
+        }
+
+        void HashTable() {
+            print("Select type of Hash-table: Basic,List,Shift");
+            string second = getCommand();
+            Command task = Command(second);
+            map<string,HashTableType> options {{"Basic",Basic},{"Shift",Shift},{"List",List}};
+
+            switch (evaluate<HashTableType>(task.base(),options))
+            {
+            case Basic:
+                HashTable::HashTable table = HashTable::HashTable();
+                break;
+
+            case List:
+                HashTableList table = HashTableList();
+                break;
+
+            case Shift:
+                HashTableDist table = HashTableDist();
+                break;
+            
+            default:
+                break;
+            }
+        }
+        
+        //TODO
+        void Set() {
 
         }
 
