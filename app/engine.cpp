@@ -92,10 +92,11 @@ class Application {
                         break;
 
                     case HashTableType::List:
-
+                        internal_HashTable_List();
                         break;
 
                     case HashTableType::Shift:
+                        internal_HashTable_Shift();
                         break;
                     
                     default:
@@ -104,7 +105,33 @@ class Application {
                 }
 
                         void internal_HashTable_Basic() {
-                            auto table = HashTable::HashTable();
+                            HashTableBasic table = HashTableBasic();
+                            print("Enter amount of elements");
+                            string third = getCommand();
+                            int amount = stoi(third);
+
+                            for (int i = 0; i<amount; i++) {
+                                Person *dummy = new Person();
+                                table.add(dummy);
+                            }
+                                // TODO: DENCHIK SUDA KOD VSTAV
+                        }
+
+                        void internal_HashTable_Shift() {
+                            HashTableDist table = HashTableDist();
+                            print("Enter amount of elements");
+                            string third = getCommand();
+                            int amount = stoi(third);
+
+                            for (int i = 0; i<amount; i++) {
+                                Person *dummy = new Person();
+                                table.add(dummy);
+                            }
+                                // TODO: DENCHIK SUDA KOD VSTAV
+                        }
+
+                        void internal_HashTable_List() {
+                            HashTableList table = HashTableList();
                             print("Enter amount of elements");
                             string third = getCommand();
                             int amount = stoi(third);
@@ -118,8 +145,31 @@ class Application {
         
                 //TODO
                 void Set() {
+                    print("Select sequence type: Sequence or SortedSequence");
+                    string third = getCommand();
+                    Command task = Command(third);
+                    map<string,SequenceType> options {{"Sequence",Sequence},{"SortedSequence",SortedSequence}};
 
+                    switch (evaluate<SequenceType>(task.base(),options)) {
+                        case Sequence:
+                            BaseSequence();
+                            break;
+
+                        case SortedSequence:
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
+
+                        void BaseSequence() {
+                            
+                        }
+
+                        void SortSequence() {
+
+                        }
 
         string getCommand(){
             string commandToGet;

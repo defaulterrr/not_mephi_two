@@ -7,9 +7,9 @@
 using namespace std;
 
 /* Declaration */
-class HashTable  {
+class HashTableBasic  {
     public:
-        HashTable();
+        HashTableBasic();
         int getCount();
         int getCapacity();
         Hashable* get(int key);
@@ -31,41 +31,41 @@ class HashTable  {
 
 /* Implementation */
 
-HashTable::HashTable(){
+HashTableBasic::HashTableBasic(){
     // Create empty vector filled with nullptrs
     storage = vector<Hashable*>(maxSize,nullptr);
 }
 
-int HashTable::getCount() {
+int HashTableBasic::getCount() {
     return curSize;
 }
 
-int HashTable::getCapacity() {
+int HashTableBasic::getCapacity() {
     return maxSize;
 }
 
-Hashable* HashTable::get(int key) {
+Hashable* HashTableBasic::get(int key) {
     if (key > maxSize) {return nullptr;}
     return storage[key];
 }
 
-void HashTable::add(Hashable* value) {
+void HashTableBasic::add(Hashable* value) {
     if(storage[value->hash()%maxSize] == nullptr) this->curSize++;
     storage[value->hash()%maxSize] = value;
     this->evaluate();
 }
 
-void HashTable::add(int key,Hashable* value) {
+void HashTableBasic::add(int key,Hashable* value) {
     storage[value->hash()%maxSize] = value;
     this->evaluate();
 }
 
-bool HashTable::containsKey(int key) {
+bool HashTableBasic::containsKey(int key) {
     if (storage[key]==nullptr) return false;
     return true;
 }
 
-void HashTable::rebuild() {
+void HashTableBasic::rebuild() {
     maxSize*=2;
     vector<Hashable*> newStorage = vector<Hashable*>(this->maxSize,nullptr);
     cout << "Initialized vector" << endl;
@@ -76,7 +76,7 @@ void HashTable::rebuild() {
     this->storage = newStorage;
 }
 
-bool HashTable::find(Hashable* value){
+bool HashTableBasic::find(Hashable* value){
     if(this->get(value->hash()%maxSize) == nullptr)
         return false;
     if(this->get(value->hash()%maxSize) == value)
@@ -84,7 +84,7 @@ bool HashTable::find(Hashable* value){
     return false;
 }
 
-void HashTable::evaluate() {
+void HashTableBasic::evaluate() {
     if (curSize > maxSize*0.75) {cout << "Calling rebuild" << endl;this->rebuild();}
 }
 
