@@ -49,35 +49,40 @@ class Application {
     private:
         string base;
         void eventLoop() {
-            print("Select type of container: Hash-table or Set");
-            string first = getCommand();
-            Command task = Command(first);
-            map<string,StorageType> options {{"Hash-table",HashTable},{"Set",Set}};
-            switch (evaluate<StorageType>(task.base(),options))
-            {
-            case HashTable:
-                print("Using Hash-Table to store elements");
-                break;
-            case Set:
-                print("Using Set to store elements");
-                break;
+            int succesful = 0;
+            while (!succesful) {
+                print("Select type of container: Hash-table or Set");
+                string first = getCommand();
+                Command task = Command(first);
+                map<string,StorageType> options {{"Hash-table",HashTable},{"Set",Set}};
+                switch (evaluate<StorageType>(task.base(),options))
+                {
+                case HashTable:
+                    print("Using Hash-Table to store elements");
+                    succesful=1;
+                    break;
+                case Set:
+                    print("Using Set to store elements");
+                    succesful=1;
+                    break;
 
-            case 404:
-                print("Invalid command was entered");
-                break;
-            
-            default:
-                print("Undefined behaviour");
-                break;
+                case 404:
+                    print("Invalid command was entered");
+                    break;
+                
+                default:
+                    print("Undefined behaviour");
+                    break;
+                }
             }
+
+
         }
 
         string getCommand(){
             string commandToGet;
             getline(cin,commandToGet);
-            if (commandToGet.empty()) {return "unkn";}
-            else
-            return commandToGet;
+            if (commandToGet.empty()) {return "unkn";} else return commandToGet;
         }
 
         void print(string message) {

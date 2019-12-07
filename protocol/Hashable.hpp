@@ -3,8 +3,8 @@
 
     class Hashable {
         public: 
-            virtual int hash() = 0;
-            virtual int hash(int max) = 0;
+            virtual int hash() const= 0;
+            virtual int hash(int max) const= 0;
     };
 
 #endif

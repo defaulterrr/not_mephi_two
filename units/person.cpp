@@ -1,4 +1,4 @@
-#include "../model/h_Person.hpp"
+#include "../models/h_Person.hpp"
 #include <iostream>
 using namespace std;
 
@@ -36,5 +36,5 @@ int main() {
     if (array[19].hash() == array[20].hash()) {cout << "Hash-func works perfectly!" << endl;}
 
     cout << "Done" << endl;
-
+    cout << ((array[1])>(array[2]))<<" ; "<< ((array[1])<(array[2]));
 }

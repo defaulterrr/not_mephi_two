@@ -20,7 +20,7 @@ static void func() {
 
 int ranInt (int max) {
     int ran = std::rand()%(max+2);
-    cout << ran << endl;
+    //cout << ran << endl;
     return ran;
    };
 
@@ -48,9 +48,10 @@ class Person: public Hashable {
 public:
     Person();
     Person(string name,string surname,string email,int year);
-    int hash();
-    int hash(int max);
+    int hash() const;
+    int hash(int max) const;
     void print();
+<<<<<<< HEAD:model/h_Person.hpp
     int hashVal = 0;
     bool operator == (const Person &two) {
         if (this->hash() == two.hash()) return true;
@@ -82,15 +83,23 @@ public:
         return true;
     }
 private:
+=======
+    friend bool operator<(const Person& left, const Person& right);
+    friend bool operator>(const Person& left, const Person& right);
+    friend bool operator>=(const Person& left, const Person& right);
+    friend bool operator<=(const Person& left, const Person& right);
+    friend bool operator==(const Person& left, const Person& right);
+>>>>>>> origin/sortSeq:models/h_Person.hpp
     string name,surname,email;
     int year;
+    //private:
     
 };
 
 /* Implementation */
 
 Person::Person() {
-    cout << "Created person" << endl;
+    //cout << "Created person" << endl;
     
     // this->name = names[ranInt(name.size()-1)];
     this->name = "asd";
@@ -98,7 +107,7 @@ Person::Person() {
     this->surname = "asdaf";
     // this->email = emails[ranInt(emails.size()-1)];
     this->email = "maskdal";
-    cout << " Created names etc" << endl;
+    //cout << " Created names etc" << endl;
     // this->year = ranInt(10000); 
     this->year = ++i; 
     
@@ -111,13 +120,19 @@ Person::Person(string name,string surname,string email,int year) {
     this->year = year;
 }
 
+<<<<<<< HEAD:model/h_Person.hpp
 int Person::hash() {
     if (this->hashVal == 0 ) {vector<string> temp = {this->name,this->surname,this->email};
     hashVal = hashOfStrings(temp,this->year);}
     return hashVal;
+=======
+int Person::hash() const{
+    vector<string> temp = {this->name,this->surname,this->email};
+    return hashOfStrings(temp,this->year);
+>>>>>>> origin/sortSeq:models/h_Person.hpp
 }
 
-int Person::hash(int max) {
+int Person::hash(int max) const{
     vector<string> temp = {this->name};
     return hashOfStrings(temp,this->year) % max;
 }
@@ -126,5 +141,36 @@ void Person::print() {
     cout << this->name << " " << this->surname << endl;
     cout << this->email << " birth: " << this->year << endl;
 }
+
+
+bool operator>(const Person &left, const Person &right){
+	return (left.hash()>right.hash());
+}
+bool operator<(const Person &left, const Person &right){
+        return (left.hash()<right.hash());
+}
+bool operator<=(const Person &left, const Person &right){
+        return (left.hash()<=right.hash());
+}
+bool operator>=(const Person &left, const Person &right){
+        return (left.hash()>=right.hash());
+}
+bool operator==(const Person &left, const Person &right){
+    if(left.hash()!=right.hash())
+        return false;
+    if(left.email!=right.email || left.name!=right.name ||
+                    left.surname!=right.surname || left.year!=right.year)
+        return false;
+    return true;
+}
+bool operator!=(const Person &left, const Person &right){
+    if(left.hash()!=right.hash())
+        return true;
+    if(left.email==right.email && left.name==right.name 
+                    && left.surname!=right.surname && left.year==right.year)
+        return false;
+    return true;
+}
+
 
 #endif
