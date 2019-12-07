@@ -14,7 +14,7 @@ template<typename T> T evaluate(string message, std::map<string,T> options) {
 }
 
 enum StorageType {
-    HashTable,
+    Hashtable,
     Set
 };
 
@@ -53,14 +53,17 @@ class Application {
                 print("Select type of container: Hash-table or Set");
                 string first = getCommand();
                 Command task = Command(first);
-                map<string,StorageType> options {{"Hash-table",HashTable},{"Set",Set}};
-                switch (evaluate<StorageType>(task.base(),options))
+                map<string,StorageType> options1 = {
+                        {"Hash-table",StorageType::Hashtable},
+                        {"Set",StorageType::Set}
+                    };
+                switch (evaluate<StorageType>(task.base(),options1))
                 {
-                case HashTable:
+                case StorageType::Hashtable:
                     print("Using Hash-Table to store elements");
                     succesful=1;
                     break;
-                case Set:
+                case StorageType::Set:
                     print("Using Set to store elements");
                     succesful=1;
                     break;
@@ -74,39 +77,49 @@ class Application {
                     break;
                 }
             }
-
-
         }
 
-        void HashTable() {
-            print("Select type of Hash-table: Basic,List,Shift");
-            string second = getCommand();
-            Command task = Command(second);
-            map<string,HashTableType> options {{"Basic",Basic},{"Shift",Shift},{"List",List}};
+                void HashTable() {
+                    print("Select type of Hash-table: Basic,List,Shift");
+                    string second = getCommand();
+                    Command task = Command(second);
+                    map<string,HashTableType> options2 {{"Basic",HashTableType::Basic},{"Shift",HashTableType::Shift},{"List",HashTableType::List}};
 
-            switch (evaluate<HashTableType>(task.base(),options))
-            {
-            case Basic:
-                HashTable::HashTable table = HashTable::HashTable();
-                break;
+                    switch (evaluate<HashTableType>(task.base(),options2))
+                    {
+                    case HashTableType::Basic:
+                        internal_HashTable_Basic();
+                        break;
 
-            case List:
-                HashTableList table = HashTableList();
-                break;
+                    case HashTableType::List:
 
-            case Shift:
-                HashTableDist table = HashTableDist();
-                break;
-            
-            default:
-                break;
-            }
-        }
+                        break;
+
+                    case HashTableType::Shift:
+                        break;
+                    
+                    default:
+                        break;
+                    }
+                }
+
+                        void internal_HashTable_Basic() {
+                            auto table = HashTable::HashTable();
+                            print("Enter amount of elements");
+                            string third = getCommand();
+                            int amount = stoi(third);
+
+                            for (int i = 0; i<amount; i++) {
+                                Person *dummy = new Person();
+                                table.add(dummy);
+                            }
+                                // TODO: DENCHIK SUDA KOD VSTAV
+                        }
         
-        //TODO
-        void Set() {
+                //TODO
+                void Set() {
 
-        }
+                }
 
         string getCommand(){
             string commandToGet;
