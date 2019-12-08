@@ -1,10 +1,10 @@
-#include "../models/h_Person.hpp"
 #include <iostream>
 using namespace std;
 
-int main() {
-    cout << "Started" << endl;
+bool personTests() {
+    cout << "Start indexing tests for Person" << endl;
     Person firstTest = Person();
+    cout << "Create 21 different Persons\n";
     Person *array = new Person[21];
     array[0] = Person("Mike","Ross","mross@harvard.edu",1985);
     array[1] = Person("Harvey","Spectre","mross@harvard.edu",1985);
@@ -29,12 +29,19 @@ int main() {
     array[20] = Person("Paul","Hudson","mross@harvard.edu",1985);
 
     for (int i =0;i<21;i++) {
+        cout << "For person #"<< i<< " with data:\n";
         array[i].print();
-        cout<<"Hash:"<<array[i].hash()<<endl;
+        cout<<"Hash: "<<array[i].hash()<<endl<<endl;
     }
+    cout << "Test hash func for same elements:\n";
+    if (array[19].hash() == array[20].hash()){
+        cout << "Test for hash-func passed!\n" << endl;
+        return true;
+    }
+    else
+        cout << "Test failed\n" << endl;
+    return false;
 
-    if (array[19].hash() == array[20].hash()) {cout << "Hash-func works perfectly!" << endl;}
-
-    cout << "Done" << endl;
-    cout << ((array[1])>(array[2]))<<" ; "<< ((array[1])<(array[2]));
 }
+
+

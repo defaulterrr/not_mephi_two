@@ -68,12 +68,13 @@ bool HashTableBasic::containsKey(int key) {
 void HashTableBasic::rebuild() {
     maxSize*=2;
     vector<Hashable*> newStorage = vector<Hashable*>(this->maxSize,nullptr);
-    cout << "Initialized vector" << endl;
-    for (int i = 0;i<storage.size();i++) {
-        cout << "Index of old vector = " << i+1 << endl;
-        if(storage[i]!=nullptr) {newStorage[storage[i]->hash()%(maxSize+1)] = storage[i];}
-    }
+    vector<Hashable*> oldStorage = this->storage;
     this->storage = newStorage;
+    this->curSize = 0;
+    for (int i = 0;i<oldStorage.size();i++) {
+        if(oldStorage[i]!=nullptr)
+            this->add(oldStorage[i]);
+    }
 }
 
 bool HashTableBasic::find(Hashable* value){

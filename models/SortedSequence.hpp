@@ -169,10 +169,6 @@ public:
 			head_->setPrev(newElement);
 			newElement->setNext(head_);
 			head_ = newElement;
-            
-			//tail_->setNext(newElement);
-			//newElement->setPrev(tail_);
-			//tail_ = newElement;
 		}
 		else
 		{
@@ -219,7 +215,6 @@ public:
 			{
 				current_ = tail_;
 				for (int i = 0; i < this->length_-index-1; i++) {
-                //cout << "\n I="<<i;
 					current_ = current_->getPrev();
 			}
 

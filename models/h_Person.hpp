@@ -19,9 +19,7 @@ static void func() {
     static int i = 0;
 
 int ranInt (int max) {
-    int ran = std::rand()%(max+2);
-    //cout << ran << endl;
-    return ran;
+    return static_cast <int> (rand()) / static_cast <int> (RAND_MAX/max);
    };
 
 const vector<string> names = {"John","Joe","Carl","Vito","Alan","Barbara","Robert","Harvey","Mike","Jessica","Rachel","Vicky","Louis","Donna"};
@@ -65,17 +63,10 @@ public:
 /* Implementation */
 
 Person::Person() {
-    //cout << "Created person" << endl;
-    
-    // this->name = names[ranInt(name.size()-1)];
-    this->name = "asd";
-    // this->surname = surnames[ranInt(surnames.size()-1)];
-    this->surname = "asdaf";
-    // this->email = emails[ranInt(emails.size()-1)];
-    this->email = "maskdal";
-    //cout << " Created names etc" << endl;
-    // this->year = ranInt(10000); 
-    this->year = ++i; 
+    this->name = names[ranInt(name.size()-1)];
+    this->surname = surnames[ranInt(surnames.size()-1)];
+    this->email = emails[ranInt(emails.size()-1)];
+    this->year = ranInt(10000);
     
 }
 

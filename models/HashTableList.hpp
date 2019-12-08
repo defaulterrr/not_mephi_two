@@ -35,7 +35,6 @@ class HashTableList {
 
 HashTableList::HashTableList(){
     // Create empty vector filled with nullptrs
-    // storage = vector<vector<Hashable*>>(maxSize,nullptr);
     storage = vector<vector<Hashable*>>();
     for (int i = 0; i<maxSize; i++) {
         vector<Hashable*> temp = vector<Hashable*>(1,nullptr);
@@ -64,16 +63,15 @@ Hashable* HashTableList::get(int key, int n) {
 }
 
 void HashTableList::add(Hashable* value) {
-    // storage[value->hash()%maxSize] = value;
-    //<vector<Hashable*>
     int itr = value->hash()%maxSize;
     if( storage[itr][0] == nullptr) {
-        storage[itr] = vector<Hashable*>();
+        storage[itr][0] = value;
         this->curSize++;
     }
-        
-    storage[itr].push_back(value);
-    
+    else {
+        storage[itr].push_back(value);
+    }
+
     this->evaluate();
 }
 
@@ -85,18 +83,20 @@ bool HashTableList::containsKey(int key) {
 void HashTableList::rebuild() {
     maxSize*=2;
     vector<vector<Hashable*>> newStorage = vector<vector<Hashable*>>();
+    vector<vector<Hashable*>> oldStorage = this->storage;
+    this->curSize = 0;
     for (int i = 0; i<maxSize; i++) {
         vector<Hashable*> temp = vector<Hashable*>(1,nullptr);
         newStorage.push_back(temp);
     }
-    for (int i = 0;i<storage.size();i++) {
-        if (storage[i][0]!=nullptr) {
-            for (int j = 0; j<storage[i].size();j++) {
-                newStorage[storage[i][j]->hash()%maxSize].push_back(storage[i][j]); 
+    this->storage = newStorage;
+    for (int i = 0;i<oldStorage.size();i++) {
+        if (oldStorage[i][0]!=nullptr) {
+            for (int j = 0; j<oldStorage[i].size();j++) {
+                this->add(oldStorage[i][j]);
             }
         }
     }
-    this->storage = newStorage;
 }
 
 bool HashTableList::find(Hashable* value){
@@ -104,7 +104,7 @@ bool HashTableList::find(Hashable* value){
     for(int i=0;i<tmp.size();i++){
         if(tmp[i] == value)
             return true;
-        i++;
+
     }
     return false;
 }
